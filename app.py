@@ -13,18 +13,18 @@ app.secret_key = "abc"
 
 def get_image():
     if request.method == 'POST':
-        # Check if the request contains a file
+        
         if 'image' not in request.files:
             return "No image part in the request."
 
         file = request.files['image']
 
-        # Check if the file has a filename and is allowed
+        
         if file.filename == '':
             return "No selected file."
         
         if file and allowed_file(file.filename):
-            # Save the file to the UPLOAD_FOLDER
+           
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
             session['uploaded_image'] = file.filename
             return redirect(url_for('predict_output'))
